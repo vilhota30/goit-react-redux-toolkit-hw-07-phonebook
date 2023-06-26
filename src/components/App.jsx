@@ -5,8 +5,6 @@ import PhoneBook from './PhoneBook/PhoneBook';
 import ContactList from './ContactList/ContactList';
 import Filter from './Filter/Filter';
 
-
-
 class App extends Component {
   state= {
     contacts: [
@@ -21,18 +19,7 @@ class App extends Component {
   isContactUnique = (newName) => {
     return this.state.contacts.some(({name}) => name === newName);
   }
-
-  validateName = (name) => {
-    const namePattern = "/^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$/";
-    return namePattern.test(name);
-  };
-
-  validateNumber = (number) => {
-    const numberPattern = "/^\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}$/";
-    return numberPattern.test(number);
-  };
-
-
+  
   addContact = data => {
     const { contacts } = this.state;
     const newContact = {
@@ -51,7 +38,7 @@ class App extends Component {
   deleteContact = contactId => {
     const deletedContact = this.state.contacts.find(contact => contact.id === contactId);
     if (deletedContact) {
-       const {name} = deletedContact;
+      //  const {name} = deletedContact;
       this.setState(({contacts}) => ({
         contacts: contacts.filter(contact => contact.id !== contactId),
       }));
