@@ -51,7 +51,7 @@ class App extends Component {
   deleteContact = contactId => {
     const deletedContact = this.state.contacts.find(contact => contact.id === contactId);
     if (deletedContact) {
-      const {name} = deletedContact;
+       const {name} = deletedContact;
       this.setState(({contacts}) => ({
         contacts: contacts.filter(contact => contact.id !== contactId),
       }));
@@ -70,7 +70,7 @@ class App extends Component {
   };
 
   render () {
-    const filteredContacts = this.filterList();
+     const filteredContacts = this.filterList();
     
 
      return (
@@ -82,7 +82,7 @@ class App extends Component {
         <Filter value={this.state.filter} onChange={this.changeFilter}/>
           {filteredContacts.length > 0 ? (
           <ContactList
-            contacts={this.filterList()} onDeleteContact={this.deleteContact}
+            contacts={filteredContacts} onDeleteContact={this.deleteContact}
           />
         ) : (
           <p>No contacts found</p>
