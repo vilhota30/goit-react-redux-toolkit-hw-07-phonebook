@@ -1,8 +1,8 @@
 import React, {Component} from "react";
 import PropTypes from "prop-types";
-import { Button, Form, LabelForm, Input } from './Phonebook.styled';
+import { Button, Form, LabelForm, Input } from './PhoneBook.styled';
 
- class PhoneBook extends Component {
+class PhoneBook extends Component {
     state = {
         name: " ",
         number:" ",
@@ -41,9 +41,9 @@ import { Button, Form, LabelForm, Input } from './Phonebook.styled';
                     type="text"
                     name="name"
                     pattern="^[a-zA-Zа-яА-Я]+(([' \-][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
-                    title="User name"
+                    title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
                     required
-                    value={value}
+                    value={name}
                     onChange={this.handleChangeContact}
                     />
                 </LabelForm>
@@ -53,7 +53,7 @@ import { Button, Form, LabelForm, Input } from './Phonebook.styled';
                     type="tel"
                     name="number"
                     pattern="\+?\d{1,4}?[ .\-\s]?\(?\d{1,3}?\)?[ .\-\s]?\d{1,4}[ .\-\s]?\d{1,4}[ .\-\s]?\d{1,9}"
-                    title="Phone number"
+                    title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
                     required
                     value={number}
                     onChange={this.handleChangeContact}
@@ -68,4 +68,5 @@ import { Button, Form, LabelForm, Input } from './Phonebook.styled';
 PhoneBook.propType = {
     onAddContact: PropTypes.func.isRequired,
 };
+
 export default PhoneBook;

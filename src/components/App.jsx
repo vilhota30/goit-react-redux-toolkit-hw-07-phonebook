@@ -1,14 +1,11 @@
 import React, {Component} from "react";
 import {nanoid} from "nanoid";
 import {Container} from "./App.styled";
-import {PhoneBook} from "./PhoneBook";
-import {ContactList} from "./ContactList";
-import {Filter} from "./Filter";
+import PhoneBook from './PhoneBook/PhoneBook';
+import ContactList from './ContactList/ContactList';
+import Filter from './Filter/Filter';
 
 
-// const notification = (message) => {
-
-// }
 
 class App extends Component {
   state= {
@@ -25,40 +22,31 @@ class App extends Component {
     return this.state.contacts.some(({name}) => name === newName);
   }
 
-  validateName = (number) => {
-    const namePattern = "^[a-zA-Zа-яА-Я]+(([' \-][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$";
+  validateName = (name) => {
+    const namePattern = "/^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$/";
     return namePattern.test(name);
   };
 
   validateNumber = (number) => {
-    const numberPattern = "\+?\d{1,4}?[ .\-\s]?\(?\d{1,3}?\)?[ .\-\s]?\d{1,4}[ .\-\s]?\d{1,4}[ .\-\s]?\d{1,9}";
+    const numberPattern = "/^\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}$/";
     return numberPattern.test(number);
   };
 
-  addContact = (newName, number) => {
-    if (this.isContactUnique(newName)) {
-      // notification(`${newName} is already in contacts`);
-      return;
-    }
-    if (!this,this.validateName(newName)) {
-      // notification(`Please enter a valide name`);
-      return;
-    }
-    if (!this.validateNumber(number)) {
-      // notification(`Please enter a valid phone number`);
-      return;
-    }
 
+  addContact = data => {
+    const { contacts } = this.state;
     const newContact = {
+      ...data,
       id: nanoid(),
-      name: newName,
-      number,
-    }
+    };
 
-    this.setState(prevState => ({
-      contacts: [newContact, ...prevState.contacts],
-    }));
+    contacts.some(({ name }) => name === data.name)
+      ? alert(`${data.name} is duplicate contact`)
+      : this.setState(prevState => ({
+        contacts: [...prevState.contacts, newContact],
+      }));
   };
+
 
   deleteContact = contactId => {
     const deletedContact = this.state.contacts.find(contact => contact.id === contactId);
@@ -67,7 +55,6 @@ class App extends Component {
       this.setState(({contacts}) => ({
         contacts: contacts.filter(contact => contact.id !== contactId),
       }));
-      // notification(`Deleted ontact: &{name}`);
     }
   };
 
@@ -106,7 +93,7 @@ class App extends Component {
   }
 }
 
-
+export default App;
 
 
 

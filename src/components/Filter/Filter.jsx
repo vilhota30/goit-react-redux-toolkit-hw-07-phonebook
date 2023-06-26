@@ -10,7 +10,7 @@ import {LabelFilter, Input} from "./Filter.styled";
     );
 };
 
-Filter.PropTypes = {
+Filter.propTypes = {
     value: PropTypes.string.isRequired,
     onChange: PropTypes.func.isRequired,
 };
