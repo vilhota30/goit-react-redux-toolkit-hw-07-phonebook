@@ -5,7 +5,7 @@ import {LabelFilter, Input} from "./Filter.styled";
     return (
         <LabelFilter>
             Find contacts by name
-            <Input type="text" value={value} onChange={onChange}/>
+            <Input type="text" value={value} name="filter" placeholder="Enter contact name" onChange={onChange}/>
         </LabelFilter>
     );
 };

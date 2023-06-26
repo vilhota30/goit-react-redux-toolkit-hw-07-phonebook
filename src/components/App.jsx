@@ -58,20 +58,20 @@ class App extends Component {
     }
   };
 
-  changeFilter = evt => {
-    this.setState({filter: evt.currentTarget.value});
+  changeFilter = ({ currentTarget: { value } }) => {
+    this.setState({ filter: value });
   };
 
   filterList = () => {
-    const {contacts, filter} = this.state;
-    const normalizedFilter = filter.toLowerCase();
-    return contacts.filter(contact => 
-      contact.name.toLowerCase().includes(normalizedFilter));
+    const { filter, contacts } = this.state;
+    return contacts.filter(({ name }) =>
+      name.toLowerCase().includes(filter.toLowerCase())
+    );
   };
 
   render () {
-    const {filter} = this.state;
     const filteredContacts = this.filterList();
+    
 
      return (
        <Container>
@@ -79,16 +79,15 @@ class App extends Component {
         <PhoneBook onAddContact={this.addContact}/>
 
         <h2>Contacts</h2>
-        <Filter value={filter} onChange={this.changeFilter}/>
-        {filteredContacts.length > 0 ? (
-          <ContactList 
-          contacts={filteredContacts}
-          onDeleteContact={this.deleteContact}
+        <Filter value={this.state.filter} onChange={this.changeFilter}/>
+          {filteredContacts.length > 0 ? (
+          <ContactList
+            contacts={this.filterList()} onDeleteContact={this.deleteContact}
           />
         ) : (
           <p>No contacts found</p>
         )}
-       </Container>
+      </Container>
      );
   }
 }
