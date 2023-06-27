@@ -16,57 +16,58 @@ class App extends Component {
     filter: " ",
   };
 
-  isContactUnique = (newName) => {
-    return this.state.contacts.some(({name}) => name === newName);
-  }
-  
-  addContact = data => {
-    const { contacts } = this.state;
+   addContact = contact => {
+    const namePhone = this.state.contacts.find(
+      ({ name }) => contact.name === name
+    );
+    if (namePhone) {
+      alert(`${contact.name} is already in contacts.`);
+      return;
+    }
     const newContact = {
-      ...data,
+      ...contact,
       id: nanoid(),
     };
-
-    contacts.some(({ name }) => name === data.name)
-      ? alert(`${data.name} is duplicate contact`)
-      : this.setState(prevState => ({
-        contacts: [...prevState.contacts, newContact],
-      }));
+    this.setState(prevState => {
+      return {
+        contacts: [newContact, ...prevState.contacts],
+      };
+    });
   };
-
+  
 
   deleteContact = contactId => {
     const deletedContact = this.state.contacts.find(contact => contact.id === contactId);
     if (deletedContact) {
-      //  const {name} = deletedContact;
       this.setState(({contacts}) => ({
         contacts: contacts.filter(contact => contact.id !== contactId),
       }));
     }
   };
 
-  changeFilter = ({ currentTarget: { value } }) => {
-    this.setState({ filter: value });
-  };
+   changeFilter = ({ currentTarget: { value } }) => {
+     this.setState({ filter: value });
+   };
 
   filterList = () => {
-    const { filter, contacts } = this.state;
-    return contacts.filter(({ name }) =>
-      name.toLowerCase().includes(filter.toLowerCase())
+    const { contacts, filter } = this.state;
+    const normalizedFilter = filter.toLowerCase();
+    return contacts.filter(contact =>
+      contact.name.toLowerCase().includes(normalizedFilter),
     );
   };
 
   render () {
+     const { filter } = this.state;
      const filteredContacts = this.filterList();
-    
-
      return (
+      <>
        <Container>
         <h1>PhoneBook</h1>
         <PhoneBook onAddContact={this.addContact}/>
 
         <h2>Contacts</h2>
-        <Filter value={this.state.filter} onChange={this.changeFilter}/>
+        <Filter value={filter} onChange={this.changeFilter}/>
           {filteredContacts.length > 0 ? (
           <ContactList
             contacts={filteredContacts} onDeleteContact={this.deleteContact}
@@ -75,6 +76,7 @@ class App extends Component {
           <p>No contacts found</p>
         )}
       </Container>
+      </>
      );
   }
 }

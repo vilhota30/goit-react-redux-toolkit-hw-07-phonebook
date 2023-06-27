@@ -17,19 +17,18 @@ class PhoneBook extends Component {
     };
     
     handleSubmit = event => {
-        const {name, number} = this.state;
         event.preventDefault();
-        this.props.onAddContact(name, number);
+        this.props.onAddContact(this.state);
         this.resetForm();
     
     };
     
-    resetForm = () => {
-        this.setState({
-            name: " ",
-            number: " ",
-        });
-    };
+     resetForm = () => {
+         this.setState({
+             name: " ",
+             number: " ",
+         });
+     };
     
     render () {
         const {name, number} = this.state;
