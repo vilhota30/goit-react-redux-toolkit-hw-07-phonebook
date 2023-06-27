@@ -4,8 +4,8 @@ import { Button, Form, LabelForm, Input } from './PhoneBook.styled';
 
 class PhoneBook extends Component {
     state = {
-        name: " ",
-        number:" ",
+        name: "",
+        number: "",
     }
 
     
