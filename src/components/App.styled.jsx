@@ -10,4 +10,5 @@ margin-right: auto;
 max-width: 800px;
 min-height: 400px;
 border-radius: 8px;
+background-color: darkslateblue;
 `;

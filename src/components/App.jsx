@@ -63,10 +63,10 @@ class App extends Component {
      return (
       <>
        <Container>
-        <h1>PhoneBook</h1>
+        <h1>-Phonebook- </h1>
         <PhoneBook onAddContact={this.addContact}/>
 
-        <h2>Contacts</h2>
+        <h2>-Contacts-</h2>
         <Filter value={filter} onChange={this.changeFilter}/>
           {filteredContacts.length > 0 ? (
           <ContactList
