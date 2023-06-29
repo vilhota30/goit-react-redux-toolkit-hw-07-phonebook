@@ -37,12 +37,11 @@ class App extends Component {
   
 
   deleteContact = contactId => {
-    const deletedContact = this.state.contacts.find(contact => contact.id === contactId);
-    if (deletedContact) {
+    
       this.setState(({contacts}) => ({
         contacts: contacts.filter(contact => contact.id !== contactId),
       }));
-    }
+
   };
 
    changeFilter = ({ currentTarget: { value } }) => {

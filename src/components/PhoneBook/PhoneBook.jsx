@@ -25,8 +25,8 @@ class PhoneBook extends Component {
     
      resetForm = () => {
          this.setState({
-             name: " ",
-             number: " ",
+             name: "",
+             number: "",
          });
      };
     
