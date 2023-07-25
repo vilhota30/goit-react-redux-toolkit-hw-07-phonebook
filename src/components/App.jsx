@@ -1,9 +1,26 @@
 import React, {Component} from "react";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 import {nanoid} from "nanoid";
 import {Container} from "./App.styled";
 import PhoneBook from './PhoneBook/PhoneBook';
 import ContactList from './ContactList/ContactList';
 import Filter from './Filter/Filter';
+
+toast.info('Welcome to Phonebook!', {
+  position: "top-center",
+  autoClose: 4000,
+  hideProgressBar: false,
+  closeOnClick: true,
+  pauseOnHover: false,
+  draggable: true,
+  progress: undefined,
+  theme: "colored",
+  });
+
+  const LOCAL_STORAGE_KEY = "contacts";
+
 
 class App extends Component {
   state= {
@@ -15,13 +32,30 @@ class App extends Component {
     ],
     filter: "",
   };
+    
+
+    componentDidUpdate(_, prevState) {
+      if(prevState.contacts !== this.state.contacts) {
+       localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(this.state.contacts));
+      }
+   }
+
+
+   componentDidMount() {
+    const savedContactsFromStorage = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY));
+    if(savedContactsFromStorage) {
+      this.setState({contacts: savedContactsFromStorage});
+    }
+  }
 
    addContact = contact => {
     const namePhone = this.state.contacts.find(
       ({ name }) => contact.name === name
     );
     if (namePhone) {
-      alert(`${contact.name} is already in contacts.`);
+      toast.error(`${contact.name} is already in contacts.`, {
+        theme: "colored"
+      });
       return;
     }
     const newContact = {
@@ -41,6 +75,9 @@ class App extends Component {
       this.setState(({contacts}) => ({
         contacts: contacts.filter(contact => contact.id !== contactId),
       }));
+      toast.success("Deleted contact", {
+        theme: "colored"
+      });
 
   };
 
@@ -74,6 +111,7 @@ class App extends Component {
         ) : (
           <p>No contacts found</p>
         )}
+         <ToastContainer icon={false} />
       </Container>
       </>
      );
