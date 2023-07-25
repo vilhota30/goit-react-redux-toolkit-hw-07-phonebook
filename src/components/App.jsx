@@ -109,7 +109,7 @@ class App extends Component {
             contacts={filteredContacts} onDeleteContact={this.deleteContact}
           />
         ) : (
-          <p>No contacts found</p>
+          <p style={{color: "darksalmon", display: "flex", justifyContent: "center"}}>No contacts found</p>
         )}
          <ToastContainer icon={false} />
       </Container>
