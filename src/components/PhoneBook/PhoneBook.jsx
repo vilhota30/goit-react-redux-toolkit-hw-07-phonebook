@@ -1,39 +1,35 @@
-import React, {Component} from "react";
+import React, {useState} from "react";
 import PropTypes from "prop-types";
 import { Button, Form, LabelForm, Input } from './PhoneBook.styled';
 
-class PhoneBook extends Component {
-    state = {
-        name: "",
-        number: "",
-    }
-
+function PhoneBook({onAddContact}) {
     
-    handleChangeContact = event => {
+    const [name, setName] = useState('');
+    const [number, setNumber] = useState('');
+    
+   const handleChangeContact = event => {
         const { name, value } = event.currentTarget; 
-        this.setState({
-            [name]:value,
-        });
+        if (name === 'name') {
+            setName(value);
+        } else if(name === 'number') {
+            setNumber(value);
+        }
     };
     
-    handleSubmit = event => {
+    const handleSubmit = event => {
         event.preventDefault();
-        this.props.onAddContact(this.state);
-        this.resetForm();
+        onAddContact(name, number);
+        resetForm();
     
     };
     
-     resetForm = () => {
-         this.setState({
-             name: "",
-             number: "",
-         });
+     const resetForm = () => {
+        setName('');
+        setNumber('');
      };
     
-    render () {
-        const {name, number} = this.state;
         return (
-            <Form onSubmit={this.handleSubmit}>
+            <Form onSubmit={handleSubmit}>
                 <LabelForm>
                     Name
                     <Input
@@ -44,7 +40,7 @@ class PhoneBook extends Component {
                     title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
                     required
                     value={name}
-                    onChange={this.handleChangeContact}
+                    onChange={handleChangeContact}
                     />
                 </LabelForm>
                 <LabelForm>
@@ -57,13 +53,12 @@ class PhoneBook extends Component {
                     title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
                     required
                     value={number}
-                    onChange={this.handleChangeContact}
+                    onChange={handleChangeContact}
                     />
                 </LabelForm>
                  <Button type="submit">Add contact</Button>
             </Form>
         );
-    };
 };
 
 PhoneBook.propType = {
