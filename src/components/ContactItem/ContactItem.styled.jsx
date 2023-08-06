@@ -22,7 +22,13 @@ border-radius: 3px;
 border-color: deeppink;
 cursor: pointer;
 outline: none;
-width: 50px;
-height: 20px;
+width: 80px;
+height: 25px;
 background-color: mediumvioletred;
+&&:hover,
+&&:focus{
+    background-color: lightcoral;
+    border-color: coral;
+    color: white;
+}
 `;

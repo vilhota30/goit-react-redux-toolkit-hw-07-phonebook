@@ -1,6 +1,7 @@
 import ContactItem from "components/ContactItem/ContactItem";
 import PropTypes from "prop-types";
 
+
  const ContactList = ({ contacts, onDeleteContact }) => {
     return (
         <ul>
