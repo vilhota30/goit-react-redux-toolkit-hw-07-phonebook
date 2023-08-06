@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 import {Item, Button} from "./ContactItem.styled";
-
+import { BiMessageAltX } from "react-icons/bi";
 const ContactItem = ({id, name, number, onDeleteContact}) => {
     return (
        <Item>
@@ -8,7 +8,7 @@ const ContactItem = ({id, name, number, onDeleteContact}) => {
             {name}: {number}
         </span>
         <Button type="button" onClick={() => onDeleteContact(id)}>
-         Delete
+         Delete <BiMessageAltX/>
         </Button>
        </Item>
     );

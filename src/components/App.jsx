@@ -86,7 +86,10 @@ const deleteContact = contactId => {
   if (deletedContactId) {
     const {name} = deletedContactId;
     setContacts(contacts.filter(contact => contact.id !== contactId));
-    Notification(`Deleted contact: ${name}`);
+    toast.success(`Deleted contact: ${name}`, {
+      theme: "colored"
+    });
+      
   }
 }
  
@@ -102,6 +105,7 @@ const getFilterContacts = () => {
   );
 };
 
+const filtredContacts = getFilterContacts();
 
   return (
       <>
@@ -111,9 +115,9 @@ const getFilterContacts = () => {
 
         <h2>-Contacts-</h2>
         <Filter value={filter} onChange={changeFilter}/>
-          {getFilterContacts.length > 0 ? (
+          {filtredContacts.length > 0 ? (
           <ContactList
-            contacts={getFilterContacts} onDeleteContact={deleteContact}
+            contacts={filtredContacts} onDeleteContact={deleteContact}
           />
         ) : (
           <p style={{color: "darksalmon", display: "flex", justifyContent: "center"}}>No contacts found</p>
