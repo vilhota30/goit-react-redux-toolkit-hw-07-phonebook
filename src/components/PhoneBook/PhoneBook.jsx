@@ -1,12 +1,19 @@
 import React, {useState} from "react";
 import PropTypes from "prop-types";
+import {useDispatch, useSelector} from 'react-redux';
+import { addContact } from "redux/Contacts/contactsSlice";
+import { nanoid } from "nanoid";
+import { contactsSelect } from "redux/Selectors/selectors";
 import { Button, Form, LabelForm, Input } from './PhoneBook.styled';
 import { BiMessageAdd } from "react-icons/bi";
 
-function PhoneBook({onAddContact}) {
+ function PhoneBook() {
     
     const [name, setName] = useState('');
     const [number, setNumber] = useState('');
+
+    const dispatch = useDispatch();
+    const contacts = useSelector(contactsSelect);
     
    const handleChangeContact = event => {
         const { name, value } = event.currentTarget; 
@@ -18,10 +25,15 @@ function PhoneBook({onAddContact}) {
     };
     
     const handleSubmit = event => {
-        event.preventDefault();
-        onAddContact(name, number);
+         event.preventDefault();
+         
+        if(contacts.some(contact => contact.name === name)) {
+            alert('contact already exists');
+            return;
+        }
+
+        dispatch(addContact({name, number, id: nanoid() }));
         resetForm();
-    
     };
     
      const resetForm = () => {
