@@ -10,6 +10,7 @@ import PhoneBook from './PhoneBook/PhoneBook';
 import ContactList from './ContactList/ContactList';
 import Filter from './Filter/Filter';
 
+
   function App() {
 
     const isLoading = useSelector(selectIsLoading);
@@ -19,7 +20,7 @@ import Filter from './Filter/Filter';
       <>
          <Container>
           <h1>-Phonebook- </h1>
-            <PhoneBook /> 
+            <PhoneBook />  
           <h2>-Contacts-</h2>
             <Filter />
             {isLoading && !error && <Loader/>}
