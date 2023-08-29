@@ -71,7 +71,7 @@ import { BiMessageAdd } from "react-icons/bi";
                     onChange={handleChangeContact}
                     />
                 </LabelForm>
-                 <Button type="submit">Add contact <BiMessageAdd/> </Button>
+                <Button type="submit">Add contact<BiMessageAdd/></Button>
             </Form>
         );
 };
