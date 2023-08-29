@@ -1,9 +1,10 @@
 import React, {useState} from "react";
 import PropTypes from "prop-types";
 import {useDispatch, useSelector} from 'react-redux';
-import { addContact } from "redux/Contacts/contactsSlice";
+import { toast } from 'react-hot-toast';
+import { addDataContacts } from "redux/Operations/operations";
 import { nanoid } from "nanoid";
-import { contactsSelect } from "redux/Selectors/selectors";
+import { selectContacts } from "redux/Selectors/selectors";
 import { Button, Form, LabelForm, Input } from './PhoneBook.styled';
 import { BiMessageAdd } from "react-icons/bi";
 
@@ -13,7 +14,7 @@ import { BiMessageAdd } from "react-icons/bi";
     const [number, setNumber] = useState('');
 
     const dispatch = useDispatch();
-    const contacts = useSelector(contactsSelect);
+    const contacts = useSelector(selectContacts);
     
    const handleChangeContact = event => {
         const { name, value } = event.currentTarget; 
@@ -24,15 +25,16 @@ import { BiMessageAdd } from "react-icons/bi";
         }
     };
     
+
     const handleSubmit = event => {
          event.preventDefault();
          
-        if(contacts.some(contact => contact.name === name)) {
-            alert('contact already exists');
-            return;
+        const isNotUnique = contacts.some(contact => contact.name === name);
+          if (isNotUnique) {
+            return toast.error(`"${name}" is already in contacts.`);
         }
 
-        dispatch(addContact({name, number, id: nanoid() }));
+        dispatch(addDataContacts({name, number, id: nanoid() }));
         resetForm();
     };
     

@@ -2,12 +2,18 @@ import PropTypes from "prop-types";
 import {Item, Button} from "./ContactItem.styled";
 import { BiMessageAltX } from "react-icons/bi";
 import {useDispatch} from 'react-redux';
-import { deleteContact } from "redux/Contacts/contactsSlice";
+import { toast } from 'react-hot-toast';
+import { deleteDataContacts } from "redux/Operations/operations";
 const ContactItem = ({id, name, number}) => {
 
     const dispatch = useDispatch();
+
     const handleDeleteContact = () => {
-        dispatch(deleteContact(id));
+        dispatch(deleteDataContacts(id));
+        toast.success(`Deleted contact: ${name}`, {
+            theme: "colored"
+          });
+            
     };
     return (
        <Item>
