@@ -4,7 +4,7 @@ import { BiMessageAltX } from "react-icons/bi";
 import {useDispatch} from 'react-redux';
 import { toast } from 'react-hot-toast';
 import { deleteDataContacts } from "redux/Operations/operations";
-const ContactItem = ({id, name, number}) => {
+const ContactItem = ({name, number, id}) => {
 
     const dispatch = useDispatch();
 
