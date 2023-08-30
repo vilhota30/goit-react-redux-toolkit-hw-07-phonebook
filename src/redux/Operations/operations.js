@@ -24,7 +24,7 @@ export const addDataContacts = createAsyncThunk(
         try {
             const response = await axios.post('/contacts', {
                 name: contactData.name,
-                phonenumber: contactData.phonenumber,
+                phone: contactData.phonenumber,
             });
         return response.data;
         } catch (error) {
