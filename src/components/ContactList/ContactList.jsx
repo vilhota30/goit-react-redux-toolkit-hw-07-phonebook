@@ -16,11 +16,11 @@ import { selectDataFilteredContacts } from "redux/Selectors/selectors";
    const contacts = useSelector(selectDataFilteredContacts);
     return (
         <ul>
-      {contacts.map(({ id, name, number }) => (
+      {contacts.map(({ id, name, phone }) => (
         <ContactItem
           key={id}
           name={name}
-          number={number}
+          number={phone}
           id={id}
         />
       ))}
